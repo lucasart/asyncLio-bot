@@ -1,6 +1,4 @@
 import logging
-import os
-
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -13,9 +11,8 @@ def load_config(filename: str):
         try:
             config = yaml.safe_load(config_file)
         except Exception as e:
-            logger.critical("There is a problem with your config.yml file.")
+            logger.critical(f"Cannot parse {filename}.")
             raise e
-    config["token"] = os.getenv("LICHESS_TOKEN")
 
     global CONFIG
     CONFIG.clear()

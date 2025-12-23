@@ -1,0 +1,2 @@
+*.yml
+!config.default.yml
