@@ -1,7 +1,7 @@
 token: "lip_********************"
 concurrency: 1                # Number of games to play simultaneously.
-abort_time: 20                # Amount of time (in s) to abort game start after no activity.
-move_overhead : 2000          # Amount of time (in ms) to subtract from each move before being given to the engine.
+abort_time: 30                # Amount of time (in s) to abort game start after no activity.
+move_overhead : 1000          # Amount of time (in ms) to subtract from each move before being given to the engine.
 engine:
   path: /path/to/engine
   ponder: false
@@ -14,14 +14,11 @@ books:
   enabled: false
   selection: weighted_random  # One from weighted_random, uniform_random, or best_move.
   depth: 10
-  standard:                   # List of book file paths for variant standard. Add additional books or variants.
-    - path/to/book
-    - path/to/second/book
-  chess960:                   # List of book file paths for variant chess960.
-    - path/to/960
-    - path/to/second/960
-  atomic:                     # List of book file paths for variant atomic.
-    - path/to/atomic
+  standard:                   # List of book(s) for variant standard. Add additional books or variants.
+    - books/standard_1.bin
+    - books/standard_2.bin
+  chess960:                   # List of book(s) for variant chess960.
+    - books/chess960.bin
 
 challenge:                    # Incoming challenges.
   enabled: true               # Flag for controlling if any challenges get accepted. Overrides all other flags.
@@ -52,8 +49,8 @@ challenge:                    # Incoming challenges.
     - human
     - bot
   max_rating_diffs:           # Maximum rating distance to opponent, useful for preventing elo manipulation.
-    human: 4000
-    bot: 4000
+    human: 600
+    bot: 300
 
 draw:                         # Whether to offer/accept draws under certain conditions.
   enabled: false
@@ -63,7 +60,7 @@ draw:                         # Whether to offer/accept draws under certain cond
 
 resign:
   enabled: false
-  score: -1000                # If engine score is less than or equal to this value, the bot resigns (in cp).
+  score: -900                 # If engine score is less than or equal to this value, the bot resigns (in cp).
   moves: 5                    # How many moves in a row the value of the score has to be below the resignation value.
 
 matchmaking:
@@ -72,16 +69,20 @@ matchmaking:
   initial_times:              # Initial time for matchmaking mode to be selected at random.
     - 60
     - 120
-#    - 300
-#    - 420
-#    - 600
-#    - 900
-#    - 1800
-#    - 2400
+    - 180
+    - 300
+    - 480
+    - 780
+    - 1260
   increments:                 # Increment time for matchmaking mode to be selected at random.
     - 0
     - 1
-  max_rating_diff: 4000       # Maximum rating distance to opponent.
-  min_games: 50               # Minimum games opponent must have played in the chosen variant (including sub-division of standard into bullet, blitz etc.)
-  timeout: 5                  # Timeout (in minutes) between nothing happening and issuing a challenge.
+    - 2
+    - 3
+    - 5
+    - 8
+    - 13
+  max_rating_diff: 300        # Maximum rating distance to opponent.
+  min_games: 20               # Minimum games opponent must have played in the chosen variant (including sub-division of standard into bullet, blitz etc.)
+  timeout: 15                 # Timeout (in minutes) between nothing happening and issuing a challenge.
   rated: false                # Whether to challenge rated or casual.
