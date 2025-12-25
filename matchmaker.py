@@ -14,19 +14,19 @@ class Bot:
         self.name = info["username"]
 
         self._ratings = {}
-        self._num_games = {}
+        self._rds = {}
         for perf_type in PerfType:
             perf_info = info.get("perfs", {}).get(perf_type, {})
             self._ratings[perf_type] = perf_info.get("rating", 1500)
-            self._num_games[perf_type] = perf_info.get("games", 0)
+            self._rds[perf_type] = perf_info.get("rd", 500)
 
     def __eq__(self, other: Any) -> bool:
         if isinstance(other, Bot):
             return self.name == other.name
         return NotImplemented
 
-    def num_games(self, perf_type) -> int:
-        return self._num_games[perf_type]
+    def rd(self, perf_type) -> int:
+        return self._rds[perf_type]
 
     def rating(self, perf_type) -> int:
         return self._ratings[perf_type]
@@ -40,7 +40,7 @@ class Bot:
         ):
             return False
 
-        if other.num_games(perf_type) < CONFIG["matchmaking"]["min_games"]:
+        if other.rd(perf_type) > CONFIG["matchmaking"]["max_rd"]:
             return False
 
         return True

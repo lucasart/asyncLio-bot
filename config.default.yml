@@ -22,10 +22,10 @@ books:
 
 challenge:                    # Incoming challenges.
   enabled: true               # Flag for controlling if any challenges get accepted. Overrides all other flags.
-  max_increment: 60           # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
-  min_increment: 0            # Minimum amount of increment to accept a challenge.
-  max_initial: 3600           # Maximum amount of base time to accept a challenge. The max is 315360000 (10 years).
-  min_initial: 0              # Minimum amount of base time to accept a challenge.
+  max_increment: 60           # Max amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
+  min_increment: 0            # Min amount of increment to accept a challenge.
+  max_initial: 3600           # Max amount of base time to accept a challenge. The max is 315360000 (10 years).
+  min_initial: 0              # Min amount of base time to accept a challenge.
   variants:                   # Chess variants to accept (https://lichess.org/variant).
     - standard
 #    - chess960
@@ -48,7 +48,7 @@ challenge:                    # Incoming challenges.
   opponents:
     - human
     - bot
-  max_rating_diffs:           # Maximum rating distance to opponent, useful for preventing elo manipulation.
+  max_rating_diffs:           # Max rating distance to opponent, useful for preventing elo manipulation.
     human: 600
     bot: 300
 
@@ -82,7 +82,7 @@ matchmaking:
     - 5
     - 8
     - 13
-  max_rating_diff: 300        # Maximum rating distance to opponent.
-  min_games: 20               # Minimum games opponent must have played in the chosen variant (including sub-division of standard into bullet, blitz etc.)
+  max_rating_diff: 300        # Max rating distance to opponent.
+  max_rd: 110                 # Max rd for the opponent in the rating category (eg. bullet, blitz, ..., chess960 etc.)
   timeout: 15                 # Timeout (in minutes) between nothing happening and issuing a challenge.
   rated: false                # Whether to challenge rated or casual.
