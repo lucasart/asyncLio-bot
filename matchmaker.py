@@ -65,7 +65,7 @@ class Matchmaker:
 
         random.shuffle(bots)
 
-        variant = Variant(CONFIG["matchmaking"]["variant"])
+        variant = Variant(random.choice(CONFIG["matchmaking"]["variants"]))
         tc_seconds = random.choice(CONFIG["matchmaking"]["initial_times"])
         tc_increment = random.choice(CONFIG["matchmaking"]["increments"])
         perf_type = (
@@ -85,7 +85,7 @@ class Matchmaker:
                 )
 
                 # Send challenge request.
-                await self.li.create_challenge(bot.name, tc_seconds, tc_increment)
+                await self.li.create_challenge(bot.name, variant, tc_seconds, tc_increment)
                 return
 
         logger.warning("Could not find any bot to challenge.")

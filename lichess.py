@@ -9,7 +9,7 @@ import chess
 import httpx
 
 from config import CONFIG
-from enums import DeclineReason
+from enums import DeclineReason, Variant
 
 logger = logging.getLogger(__name__)
 
@@ -147,7 +147,7 @@ class Lichess:
         )
 
     async def create_challenge(
-        self, opponent: str, initial_time: int, increment: int = 0
+        self, opponent: str, variant: Variant, initial_time: int, increment: int
     ) -> None:
         await self.post(
             f"/api/challenge/{opponent}",
@@ -155,7 +155,7 @@ class Lichess:
                 "rated": str(CONFIG["matchmaking"]["rated"]).lower(),
                 "clock.limit": initial_time,
                 "clock.increment": increment,
-                "variant": CONFIG["matchmaking"]["variant"],
+                "variant": str(variant),
                 "color": "random",
             },
         )

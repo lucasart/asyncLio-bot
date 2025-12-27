@@ -28,8 +28,8 @@ challenge:                    # Incoming challenges.
   min_initial: 0              # Min amount of base time to accept a challenge.
   variants:                   # Chess variants to accept (https://lichess.org/variant).
     - standard
-#    - chess960
-#    - fromPosition
+    - chess960
+    - fromPosition
 #    - antichess
 #    - atomic
 #    - crazyhouse
@@ -65,7 +65,9 @@ resign:
 
 matchmaking:
   enabled: true
-  variant: standard
+  variants:
+    - standard
+    - chess960
   initial_times:              # Initial time for matchmaking mode to be selected at random.
     - 60
     - 120
