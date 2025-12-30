@@ -226,8 +226,13 @@ class Game:
 
         min_sleep_task = None
         if CONFIG['engine'].get('fake_think', False) and not first_move:
-            min_sleep_time = clock[color + '_clock'] / 30 + clock[color + '_inc'] - move_overhead
+            # Remaining time to decay with a 25 move half life: Tn+1 = Tn * 0.5^(1/25).  Spending Xn
+            # for move n: Tn+1 = Tn - Xn + inc - mo =>  Xn = Tn*(1 - 0.5^(1/25)) + inc - mo.
+            min_sleep_time = clock[color + '_clock'] * 0.027345 + clock[color + '_inc'] - move_overhead
             if min_sleep_time > 0:
+                # Increment is added after the move, not before, so guard against formula exceeding
+                # remaining time. Shouldn't happen if lags never exceed moveoverhead, but they do...
+                min_sleep_time = min(min_sleep_time, clock[color + '_clock'])
                 min_sleep_task = asyncio.create_task(asyncio.sleep(min_sleep_time))
 
         result = await self.engine.play(
